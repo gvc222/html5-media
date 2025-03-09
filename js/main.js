@@ -113,13 +113,13 @@ window.onload = function() {
 			and set the mediaElement variable to that element.
 			Use === instead of == to avoid type conversions.
 			*/
-		if (stopButton === "stopButton1") {
+		if (stopButton.id === "stopButton1") {
 			mediaElement = mediaElement1;
-		} else if (stopButton === "stopButton2") {
+		} else if (stopButton.id === "stopButton2") {
 			mediaElement = mediaElement2;
-		} else if (stopButton === "stopButton3") {
+		} else if (stopButton.id === "stopButton3") {
 			mediaElement = mediaElement3;
-		} else if (stopButton === "stopButton4") {
+		} else if (stopButton.id === "stopButton4") {
 			mediaElement = mediaElement4;
 		}
 
@@ -128,7 +128,7 @@ window.onload = function() {
 			https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Video_and_audio_APIs#Stopping_the_video
 			*/
 		mediaElement.pause();
-		mediaElement.currenTime = 0;
+		mediaElement.currentTime = 0;
 		/*
 			NOTE: The related play or pause button's display will be automatically updated since you already completed
 			the mediaEventHandler function below and bound it to be called in reaction to 'pause' events.
@@ -144,6 +144,10 @@ window.onload = function() {
 	  The stopButtonEventHandler function is defined above, so we don't need to worry about
 	  function hoisting.
 	  */
+	stopButton1.addEventListener('click', stopButtonEventHandler, false);
+	stopButton2.addEventListener('click', stopButtonEventHandler, false);
+	stopButton3.addEventListener('click', stopButtonEventHandler, false);
+	stopButton4.addEventListener('click', stopButtonEventHandler, false);
 
 	var mediaEventHandler = function(event) {
 		/*
@@ -171,13 +175,25 @@ window.onload = function() {
 		  elementand set the button variable to that element.
 		  It is best to use === instead of == to avoid type conversions.
 		*/
-
+		if (mediaElement.id === "mediaElement1") {
+			button = playOrPauseButton1;
+		} else if (mediaElement.id === "mediaElement2") {
+			button = playOrPauseButton2;
+		} else if (mediaElement.id === "mediaElement3") {
+			button = playOrPauseButton3;
+		} else if (mediaElement.id === "mediaElement4") {
+			button = playOrPauseButton4;
+		}
 		/*
 		  TODO: Set the button's innerHTML to 'Pause' or 'Play' depending on if
 		  the media element is paused or not by using the boolean value of
 		  mediaElement.paused.
 		*/
-
+		if (mediaElement.paused) {
+			button.innerHTML = 'Play'
+		} else {
+			button.innerHTML = 'Pause'
+		}
 		/*
 		DONE: If the media element just ended, mark it as watched.
 		If the media element has been watched, add a check mark to the beginning of
@@ -246,7 +262,7 @@ window.onload = function() {
 		if (mediaElement.volume > 0.1) {
 			mediaElement.volume -= 0.1
 		} else {
-			mediaElement = 0.0;
+			mediaElement.volume = 0.0;
 		}
 	};
 
