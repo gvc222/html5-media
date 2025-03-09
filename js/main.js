@@ -127,7 +127,9 @@ window.onload = function() {
 			TODO: Add your code here to stop the mediaElement See:
 			https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Video_and_audio_APIs#Stopping_the_video
 			*/
+		// Pauses video
 		mediaElement.pause();
+		// Sets time back to 0 to complete the "stop" action
 		mediaElement.currentTime = 0;
 		/*
 			NOTE: The related play or pause button's display will be automatically updated since you already completed
@@ -235,7 +237,7 @@ window.onload = function() {
 		if (mediaElement.volume  < 0.9) {
 			mediaElement.volume += 0.1;
 		} else {
-			mediaElement.volume = 1.0
+			mediaElement.volume = 1.0 // Maximum volume
 		}
 	};
 
@@ -262,7 +264,7 @@ window.onload = function() {
 		if (mediaElement.volume > 0.1) {
 			mediaElement.volume -= 0.1
 		} else {
-			mediaElement.volume = 0.0;
+			mediaElement.volume = 0.0; // Minimum Volume
 		}
 	};
 
