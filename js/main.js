@@ -76,9 +76,15 @@ window.onload = function() {
 			and set the mediaElement variable to that element.
 			Use === instead of == to avoid type conversions.
 			*/
-
+		mediaElement = document.getElementById(playOrPauseButton.id.replace("playOrPauseButton", "mediaElement"));
 		// TODO: Add your code here to play or pause the mediaElement
-
+		if (mediaElement) {
+			if (mediaElement.paused) {
+				mediaElement.play();
+			} else {
+				mediaElement.pause();
+			}
+	}
 		/*
 			NOTE: The playOrPauseButton's display will be automatically updated since you already completed
 			the mediaEventHandler function below and bound it to be called in reaction to 'play' and 'pause' events.
@@ -94,6 +100,10 @@ window.onload = function() {
 	  The playOrPauseButtonEventHandler function is defined above, so we don't need to worry about
 	  function hoisting.
 	  */
+	playOrPauseButton1.addEventListener('click', playOrPauseButtonEventHandler, false);
+	playOrPauseButton2.addEventListener('click', playOrPauseButtonEventHandler, false);
+	playOrPauseButton3.addEventListener('click', playOrPauseButtonEventHandler, false);
+	playOrPauseButton4.addEventListener('click', playOrPauseButtonEventHandler, false);
 
 	var stopButtonEventHandler = function(event) {
 		var stopButton = event.target;
@@ -103,12 +113,22 @@ window.onload = function() {
 			and set the mediaElement variable to that element.
 			Use === instead of == to avoid type conversions.
 			*/
+		if (stopButton === "stopButton1") {
+			mediaElement = mediaElement1;
+		} else if (stopButton === "stopButton2") {
+			mediaElement = mediaElement2;
+		} else if (stopButton === "stopButton3") {
+			mediaElement = mediaElement3;
+		} else if (stopButton === "stopButton4") {
+			mediaElement = mediaElement4;
+		}
 
 		/*
 			TODO: Add your code here to stop the mediaElement See:
 			https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Video_and_audio_APIs#Stopping_the_video
 			*/
-
+		mediaElement.pause();
+		mediaElement.currenTime = 0;
 		/*
 			NOTE: The related play or pause button's display will be automatically updated since you already completed
 			the mediaEventHandler function below and bound it to be called in reaction to 'pause' events.
@@ -135,7 +155,7 @@ window.onload = function() {
 			 whatever HTML media element called this mediaEventHandler
 			 function when a playing, pause, or an ended event was fired.
 			 */
-		var mediaElement; // TODO: You must set the mediaElement var on this line
+		var mediaElement = this; // TODO: You must set the mediaElement var on this line
 		console.log("mediaEventHandler called with event:", event);
 		console.log("mediaEventHandler called with event.target:", event.target);
 		console.log(
@@ -183,6 +203,11 @@ window.onload = function() {
 	  The mediaEventHandler function is defined above, so we don't need to worry
 	  about function hoisting.
 	*/
+	for (var i = 0; i < mediaElements.length; i++) {
+		mediaElements[i].addEventListener('playing', mediaEventHandler, false);
+		mediaElements[i].addEventListener('pause', mediaEventHandler, false);
+		mediaElements[i].addEventListener('ended', mediaEventHandler, false);
+	}
 
 	var increaseVolume = function(mediaElement) {
 		/*
@@ -191,6 +216,11 @@ window.onload = function() {
 			an error) and set the volume to 1.0 if the current volume is too
 			close to 1.0
 		*/
+		if (mediaElement.volume  < 0.9) {
+			mediaElement.volume += 0.1;
+		} else {
+			mediaElement.volume = 1.0
+		}
 	};
 
 	increaseVolumeButton1.onclick = function(event) {
@@ -213,6 +243,11 @@ window.onload = function() {
 			an error) and set the volume to 0.0 if the current volume is too
 			close to 0.0
 		*/
+		if (mediaElement.volume > 0.1) {
+			mediaElement.volume -= 0.1
+		} else {
+			mediaElement = 0.0;
+		}
 	};
 
 	decreaseVolumeButton1.onclick = function(event) {
